@@ -1,6 +1,6 @@
 {
   "name": "exdogen",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "EXpress router api DOcument GENerator",
   "main": "src/index.js",
   "scripts": {
