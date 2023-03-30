@@ -26,7 +26,7 @@ const express = require('express');
 const app = express();
 const apiRouter = require('./apiRouter');
 
-const Exdogen = require('../src/index');
+const Exdogen = require('exdogen');
 const exdogen = Exdogen({
   onHtmlGenerated: (html) => {
     const docs = __dirname + '/public/docs';
