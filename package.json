@@ -1,0 +1,28 @@
+{
+  "name": "exdogen",
+  "version": "1.0.0",
+  "description": "EXpress router api DOcument GENerator",
+  "main": "index.js",
+  "scripts": {
+    "example": "cd example && node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThinhVu/exdogen.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ThinhVu/exdogen/issues"
+  },
+  "homepage": "https://github.com/ThinhVu/exdogen#readme",
+  "dependencies": {
+    "routerex": "Thinhvu/routerex",
+    "vue": "^3.2.47",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "express": "^4.17.1"
+  }
+}
