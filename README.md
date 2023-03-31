@@ -82,12 +82,13 @@ apiRouter.put('/product/update/:categoryId', {
 }, (req, res) => res.send('product updated'));
 ```
 
-Attach exdogen to express app
+Attach Exdogen to express app
 ```js
-const fs = require('fs');
-const express = require('express');
-const app = express();
-const apiRouter = require('./apiRouter');
+const express = require('express')
+const app = express()
+const apiRouter = require('./apiRouter')
+
+// do api stuff at here
 
 const Exdogen = require('exdogen');
 const cache = {};
@@ -99,11 +100,10 @@ const exdogen = Exdogen({
 const middelware1 = (req, res, next) => { next() }
 const middelware2 = (req, res, next) => { next() }
 app.use(...exdogen('/', middelware1, middelware2, apiRouter));
-app.get('/docs', (req, res) => res.send(cache.html));
+
+// serve html and postman file
 app.get('/docs/index.html', (req, res) => res.send(cache.html));
 app.get('/docs/postman.json', (req, res) => res.send(cache.postman));
-app.use('/', express.static('public'));
-
 ```
 
 ### Output
