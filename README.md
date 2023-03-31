@@ -24,7 +24,8 @@ apiRouter.get('/hi-mom', {
 
 More complex example
 ```js
-// update product
+// Update all products in a category with a given ID
+// and a given price 2 status (true/false) to for sale (true/false)
 apiRouter.put('/product/update/:categoryId', {
   title: 'Update product',
   desc: 'Update product',
@@ -58,11 +59,11 @@ apiRouter.put('/product/update/:categoryId', {
   response: {
     200: {
       type: 'string',
-      desc: 'Echoed message'
+      desc: 'Product updated'
     },
     400: {
       type: 'string',
-      desc: 'Too many times'
+      desc: 'Bad request'
     }
   },
   testCases: [
@@ -70,14 +71,11 @@ apiRouter.put('/product/update/:categoryId', {
       headers: {
         Authorization: `{{TOKEN}}`
       },
-      query: {
-        times: 3
+      params: {
+        categoryId: '123'
       },
       body: {
         product: {forSale: true}
-      },
-      params: {
-        categoryId: '123'
       }
     }
   ]
