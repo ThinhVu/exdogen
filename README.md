@@ -3,6 +3,8 @@ EXpress router api DOcument GENerator
 
 ### Usage
 
+
+You just need to put a metadata object between route's path and middleware function.
 ```js
 // using routerex to define express router
 const Router = require('routerex');
@@ -20,6 +22,69 @@ apiRouter.get('/hi-mom', {
 }, (req, res) => res.send('Hi, mom!'))
 ```
 
+More complex example
+```js
+// update product
+apiRouter.put('/product/update/:categoryId', {
+  title: 'Update product',
+  desc: 'Update product',
+  schema: {
+    headers: {
+      Authorization: {
+        type: 'string',
+        desc: 'Authorization token'
+      }
+    },
+    params: {
+      categoryId: {
+        type: 'string',
+        desc: 'Category ID',
+        required: true
+      }
+    },
+    query: {
+      hasPrice2: {
+        type: 'boolean',
+        desc: 'Has price 2'
+      }
+    },
+    body: {
+      product: {
+        type: 'object',
+        desc: 'Product',
+      }
+    }
+  },
+  response: {
+    200: {
+      type: 'string',
+      desc: 'Echoed message'
+    },
+    400: {
+      type: 'string',
+      desc: 'Too many times'
+    }
+  },
+  testCases: [
+    {
+      headers: {
+        Authorization: `{{TOKEN}}`
+      },
+      query: {
+        times: 3
+      },
+      body: {
+        product: {forSale: true}
+      },
+      params: {
+        categoryId: '123'
+      }
+    }
+  ]
+}, (req, res) => res.send('product updated'));
+```
+
+Attach exdogen to express app
 ```js
 const fs = require('fs');
 const express = require('express');
