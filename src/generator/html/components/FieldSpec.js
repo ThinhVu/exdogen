@@ -1,12 +1,12 @@
 const {computed} = require('vue')
-const CollapsableSection = require('./CollapsableSection');
+const CollapsibleSection = require('./CollapsibleSection');
 
 module.exports = {
   props: {
     title: String,
     value: Object
   },
-  components: {CollapsableSection},
+  components: {CollapsibleSection},
   setup(props) {
     const visible = computed(() => props.value)
     const entries = computed(() => Object.entries(props.value || {}))
@@ -15,7 +15,7 @@ module.exports = {
     }
   },
   template: `
-  <collapsable-section :title="title" v-if="visible">
+  <collapsible-section :title="title" v-if="visible">
     <div class="fc fg-1">
       <div v-for="(entry, i) of entries" :key="i" style="border: 1px solid #ddd; border-radius: 10px" class="px-3 py-3">
         <p class="mb-3" style="font-size: 12px">
@@ -26,6 +26,6 @@ module.exports = {
         <p class="fs-xs">{{ entry[1].desc }}</p>
       </div>
     </div>
-  </collapsable-section>
+  </collapsible-section>
   `
 }
