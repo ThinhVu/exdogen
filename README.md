@@ -108,11 +108,13 @@ app.get('/docs/postman.json', (req, res) => res.send(cache.postman));
 
 ### Output
 
+Postman file
+![postman-file.png](docs%2Fimages%2Fpostman-file.png)
+
 Html document
 ![html-doc.png](docs%2Fimages%2Fhtml-doc.png)
 
-Postman file
-![postman-file.png](docs%2Fimages%2Fpostman-file.png)
+![html-doc-2.png](docs%2Fimages%2Fhtml-doc-2.png)
 
 
 ### ROADMAP
