@@ -14,22 +14,29 @@ module.exports = {
     FieldSpec
   },
   props: {
+    subRoute: Array,
     path: String,
     methods: Object,
     metadata: Object
   },
   setup(props) {
-    const methodName = computed(() => Object.keys(props.methods).find(k => props.methods[k]))
-    const methodColor = computed(() => methodColors[methodName.value] || '#aaa')
-    const elId = computed(() => `${methodName.value}:${props.path}`)
+    const isSubRoute = props.subRoute && props.subRoute.length > 0
+    const methodName = isSubRoute ? '' : Object.keys(props.methods).find(k => props.methods[k]);
+    const methodColor = methodColors[methodName] || '#aaa'
+    const elId = `${methodName}:${props.path}`
     return {
+      isSubRoute,
       methodName,
       methodColor,
       elId
     }
   },
   template: `
-<div class="grid gtc-1fr-1fr" style="border-top: 1px solid #ddd">
+<div v-if="isSubRoute">
+  <div style="padding: 10px; background-color: #b4b4b4">{{path}}</div>
+  <api-doc-item v-for="item in subRoute" v-bind="item" class="mb-3"/>
+</div>    
+<div v-else class="grid gtc-1fr-1fr" style="border-top: 1px solid #ddd">
     <div class="fc fg-1 px-3">
       <div class="pt-2 fs-l" :id="elId">{{metadata.title}}</div>
       <div style="border: 1px solid #ddd; line-height: 30px; border-radius: 6px;" class="fr ai-c mb-2 ovf-h">
@@ -44,7 +51,6 @@ module.exports = {
       <field-spec title="Response" :value="metadata.response"/>
     </div>
     <div style="color: #fff; background-color: #1e204c; border-radius: 0 0 6px 6px">
-
     </div>
 </div>`
 }

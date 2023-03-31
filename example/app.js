@@ -1,7 +1,6 @@
 const express = require('express');
 const Router = require('routerex');
 const Exdogen = require('../src/index');
-const fs = require('fs');
 const app = express();
 
 const apiRouter = Router();
@@ -88,25 +87,51 @@ apiRouter.put('/product/update/:categoryId', {
   res.send(echoMsg);
 });
 
-const exdogen = Exdogen({
-  onHtmlGenerated: (html) => {
-    const docs = __dirname + '/public/docs';
-    if (!fs.existsSync(docs))
-      fs.mkdirSync(docs)
-    fs.writeFileSync(docs + '/index.html', html);
-  },
-  onPostmanGenerated: (postman) => {
-    const docs = __dirname + '/public/docs';
-    if (!fs.existsSync(docs))
-      fs.mkdirSync(docs)
-    fs.writeFileSync(docs + '/postman.json', JSON.stringify(postman))
-  },
-  onError: (e) => {
-    console.error(e);
+const userRouter = Router();
+userRouter.get('/hi', {
+  title: 'Hi user',
+  desc: 'Say hi to user',
+  response: {
+    200: {
+      type: 'string',
+      desc: 'Hi, user!'
+    }
   }
+}, (req, res) => res.send('Hi, user!'));
+userRouter.get('/hi/:name', {
+  title: 'Hi user',
+  desc: 'Say hi to user',
+  schema: {
+    params: {
+      name: {
+        type: 'string',
+        desc: 'User name',
+        required: true
+      }
+    }
+  },
+  response: {
+    200: {
+      type: 'string',
+      desc: 'Hi, user!'
+    }
+  }
+}, (req, res) => res.send(`Hi, ${req.params.name}!`));
+apiRouter.use('/user', userRouter);
+
+const cache = {};
+const exdogen = Exdogen({
+  onHtmlGenerated: html => cache.html = html,
+  onPostmanGenerated: postman => cache.postman = postman,
+  onError: console.error
 })
-app.use(...exdogen('/', [/*middlewares*/], apiRouter));
-app.use(express.static('public'));
+const middelware1 = (req, res, next) => { next() }
+const middelware2 = (req, res, next) => { next() }
+app.use(...exdogen('/', middelware1, middelware2, apiRouter));
+app.get('/docs', (req, res) => res.send(cache.html));
+app.get('/docs/index.html', (req, res) => res.send(cache.html));
+app.get('/docs/postman.json', (req, res) => res.send(cache.postman));
+app.use('/', express.static('public'));
 
 app.listen(3000, () => {
   console.log('Example app listening on http://localhost:3000');

@@ -3,7 +3,7 @@ lockfileVersion: '6.0'
 dependencies:
   routerex:
     specifier: Thinhvu/routerex
-    version: github.com/Thinhvu/routerex/eab466efbe7ff172dc6b129d50ebccc20327bd26
+    version: github.com/Thinhvu/routerex/022f320bba81025ae89997ff908f96dacdf770c7
   uuid:
     specifier: ^9.0.0
     version: 9.0.0
@@ -1584,8 +1584,8 @@ packages:
       yargs-parser: 20.2.9
     dev: true
 
-  github.com/Thinhvu/routerex/eab466efbe7ff172dc6b129d50ebccc20327bd26:
-    resolution: {tarball: https://codeload.github.com/Thinhvu/routerex/tar.gz/eab466efbe7ff172dc6b129d50ebccc20327bd26}
+  github.com/Thinhvu/routerex/022f320bba81025ae89997ff908f96dacdf770c7:
+    resolution: {tarball: https://codeload.github.com/Thinhvu/routerex/tar.gz/022f320bba81025ae89997ff908f96dacdf770c7}
     name: routerex
     version: 1.0.0
     dependencies:

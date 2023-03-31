@@ -1,13 +1,10 @@
 const ApiDocItem = require('./components/ApiDocItem')
+const ApiDocLink = require('./components/ApiDocLink')
 
 module.exports = {
-  components: {ApiDocItem},
+  components: {ApiDocItem, ApiDocLink},
   props: {routeMetadatas: Array},
   setup() {
-    const methodName = (item) => Object.keys(item.methods).find(k => item.methods[k])
-    const toLower = (v) => v && v.toLowerCase()
-    const href = (item) => `#${methodName(item)}:${item.path}`
-    return {methodName, toLower, href}
   },
   template:
 `<div class="w-100vw h-100vh">
@@ -17,11 +14,7 @@ module.exports = {
     <div class="grid ovf-h" style="height: calc(100% - 40px); grid-template-columns: 240px 1fr;">
       <div class="h-100 ovf-y-s" style="border-right: 1px solid #ddd; padding-left: 15px">
         <ul class="mx-2">
-          <li class="my-1 clickable" v-for="item in routeMetadatas">
-            <a style="text-decoration: none; color: #0c0c0d" :href="href(item)">
-              {{item.metadata.title || toLower(item.path)}}
-            </a>
-          </li>
+          <api-doc-link v-for="item in routeMetadatas" v-bind="item"/>
         </ul>
       </div>
       <div class="h-100 ovf-y-s">

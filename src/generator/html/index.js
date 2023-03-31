@@ -20,6 +20,8 @@ function buildHtml(docContent) {
       /*margin*/
       .my-1 { margin-top: 0.5em; margin-bottom: 0.5em; }
       .ml-1 { margin-left: 0.5em; }
+      .ml-2 { margin-left: 1em; }
+      .ml-3 { margin-left: 1.5em; }
       .mb-2 { margin-bottom: 1em; }
       .mr-2 { margin-right: 1em; }
       .mb-3 { margin-bottom: 1.5em; }

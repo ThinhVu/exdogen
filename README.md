@@ -27,25 +27,20 @@ const app = express();
 const apiRouter = require('./apiRouter');
 
 const Exdogen = require('exdogen');
+const cache = {};
 const exdogen = Exdogen({
-  onHtmlGenerated: (html) => {
-    const docs = __dirname + '/public/docs';
-    if (!fs.existsSync(docs))
-      fs.mkdirSync(docs)
-    fs.writeFileSync(docs + '/index.html', html);
-  },
-  onPostmanGenerated: (postman) => {
-    const docs = __dirname + '/public/docs';
-    if (!fs.existsSync(docs))
-      fs.mkdirSync(docs)
-    fs.writeFileSync(docs + '/postman.json', JSON.stringify(postman))
-  },
-  onError: (e) => {
-    console.error(e);
-  }
+  onHtmlGenerated: html => cache.html = html,
+  onPostmanGenerated: postman => cache.postman = postman,
+  onError: console.error
 })
-app.use(...exdogen('/', [/*middlewares*/], apiRouter));
-app.use(express.static('public'));
+const middelware1 = (req, res, next) => { next() }
+const middelware2 = (req, res, next) => { next() }
+app.use(...exdogen('/', middelware1, middelware2, apiRouter));
+app.get('/docs', (req, res) => res.send(cache.html));
+app.get('/docs/index.html', (req, res) => res.send(cache.html));
+app.get('/docs/postman.json', (req, res) => res.send(cache.postman));
+app.use('/', express.static('public'));
+
 ```
 
 ### Output
