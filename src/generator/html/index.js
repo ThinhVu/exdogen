@@ -77,7 +77,8 @@ function buildHtml(docContent) {
   </html>`
 }
 
-module.exports = (routeMetadatas, cb) => {
+module.exports = async (routeMetadatas) => {
   const app = createSSRApp(ApiDoc, {routeMetadatas})
-  renderToString(app).then(html => cb(buildHtml(html)))
+  const html = await renderToString(app)
+  return buildHtml(html)
 }

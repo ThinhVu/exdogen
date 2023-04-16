@@ -71,16 +71,15 @@ function generateAPI(route) {
   }
 }
 
-module.exports = (metadatas, cb) => {
-  const items = metadatas.map(generateAPI)
-
-  const postman = {
-    info: {
-      _postman_id: v4(),
-      name: "API Documentation",
-      schema: "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    },
-    items
-  }
-  cb(postman)
+module.exports = async (metadatas) => {
+  return new Promise(r => {
+    r({
+      info: {
+        _postman_id: v4(),
+            name: "API Documentation",
+            schema: "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      },
+      items: metadatas.map(generateAPI)
+    })
+  })
 }

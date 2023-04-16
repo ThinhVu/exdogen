@@ -1,32 +1,11 @@
 const generateHtml = require('./generator/html')
 const generatePostman = require('./generator/postman')
-const routeMetadataCollectorFactory = require('./collector/routeMetadataCollectorFactory')
+const collectRouteMetadata = require('./collector/collectRouteMetadata')
 
-module.exports = function (config) {
-  if (!config) {
-    throw new Error('No config provided')
+module.exports = async function generateDocument(apiPath, router) {
+  const routeMetadata = collectRouteMetadata(apiPath, router)
+  return {
+    html: await generateHtml(routeMetadata),
+    postman: await generatePostman(routeMetadata)
   }
-  const {onHtmlGenerated, onPostmanGenerated, onError} = config
-  return routeMetadataCollectorFactory({
-    onMetadataGathered: async metadatas => {
-      if (onHtmlGenerated) {
-        setImmediate(() => {
-          try {
-            generateHtml(metadatas, onHtmlGenerated)
-          } catch (e) {
-            onError && onError(e)
-          }
-        })
-      }
-      if (onPostmanGenerated) {
-        setImmediate(() => {
-          try {
-            generatePostman(metadatas, onPostmanGenerated)
-          } catch (e) {
-            onError && onError(e)
-          }
-        })
-      }
-    }
-  })
 }
