@@ -1,6 +1,6 @@
-const {routeMetadataCollectorFactory} = require('routerex')
 const generateHtml = require('./generator/html')
 const generatePostman = require('./generator/postman')
+const routeMetadataCollectorFactory = require('./collector/routeMetadataCollectorFactory')
 
 module.exports = function (config) {
   if (!config) {

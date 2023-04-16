@@ -7,7 +7,7 @@ const apiRouter = Router();
 
 // Say hi to mom
 apiRouter.get('/hi-mom', {
-  title: 'Hi mom',
+  title: 'hi mom',
   desc: 'Say hi to mom',
   response: {
     200: {
@@ -99,8 +99,8 @@ userRouter.get('/hi', {
   }
 }, (req, res) => res.send('Hi, user!'));
 userRouter.get('/hi/:name', {
-  title: 'Hi user',
-  desc: 'Say hi to user',
+  title: 'Hi specified user',
+  desc: 'Say hi to specified user with name',
   schema: {
     params: {
       name: {
@@ -117,6 +117,14 @@ userRouter.get('/hi/:name', {
     }
   }
 }, (req, res) => res.send(`Hi, ${req.params.name}!`));
+
+const userSubRouter = Router();
+userSubRouter.get('/hi', {
+  title: 'Hi user sub route',
+  desc: 'Say hi to user sub route',
+}, (req, res) => res.send('Hi, user sub route!'));
+userRouter.use('/sub', userSubRouter);
+
 apiRouter.use('/user', userRouter);
 
 const cache = {};

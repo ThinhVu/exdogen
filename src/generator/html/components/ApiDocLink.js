@@ -1,7 +1,8 @@
-const {computed} = require('vue');
+const CollapsibleSection = require('./CollapsibleSection')
 
 module.exports = {
   name: 'ApiDocItem',
+  components: {CollapsibleSection},
   props: {
     path: String,
     subRoute: Array,
@@ -9,20 +10,24 @@ module.exports = {
     metadata: Object
   },
   setup(props) {
-    const isSubRoute = props.subRoute && props.subRoute.length > 0
-    const methodName = isSubRoute ? '' : Object.keys(props.methods).find(k => props.methods[k]);
-    const href = isSubRoute ? '' : `#${methodName}:${props.path}`
-    return {href, isSubRoute}
+    const hasSubRoutes = props.subRoute && props.subRoute.length > 0
+    const methodName = hasSubRoutes ? '' : Object.keys(props.methods).find(k => props.methods[k]);
+    const href = hasSubRoutes ? '' : `#${methodName}:${props.path}`
+    return {href, hasSubRoutes}
   },
   template: `
-<ul v-if="isSubRoute">
-    <li class="my-1 clickable">{{ path }}</li>
-    <api-doc-item v-for="item in subRoute" v-bind="item" class="ml-3"/>
-</ul>
-<li v-else class="my-1 clickable">
-    <a style="text-decoration: none; color: #0c0c0d" :href="href">
+<li class="clickable" v-if="hasSubRoutes">
+  <collapsible-section :title="path">
+    <ul>
+      <api-doc-item v-for="item in subRoute" v-bind="item" class="ml-3"/>  
+    </ul>
+  </collapsible-section>
+</li>
+<li v-else class="clickable">
+  <div class="py-1">
+    <a style="text-decoration: none; text-transform: capitalize; color: #767676; font-size: 15px; font-weight: 600;" :href="href">
       {{ metadata.title || path.toLowerCase() }}
     </a>
-</li>
-  `
+  </div>
+</li>`
 }

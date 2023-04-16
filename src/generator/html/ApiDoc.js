@@ -11,7 +11,7 @@ module.exports = {
     <div style="height: 40px; line-height: 40px; border-bottom: 1px solid #ddd">
       <h3 class="mx-2">API Documentation</h3>
     </div>
-    <div class="grid ovf-h" style="height: calc(100% - 40px); grid-template-columns: 240px 1fr;">
+    <div class="grid ovf-h" style="height: calc(100% - 40px); grid-template-columns: 280px 1fr;">
       <div class="h-100 ovf-y-s" style="border-right: 1px solid #ddd; padding-left: 15px">
         <ul class="mx-2">
           <api-doc-link v-for="item in routeMetadatas" v-bind="item"/>

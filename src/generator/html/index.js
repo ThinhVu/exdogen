@@ -58,16 +58,13 @@ function buildHtml(docContent) {
       .bc:#1e204c { background-color: #1e204c; }
       .clickable { cursor: pointer; }
       .collapsible--title { position: relative }
-      .collapsible--title::before { content: '▶'; rotate: 90deg; transition: rotate 0.5s; position: absolute; left: 0; color: #767676; }
-      .hide .collapsible--title::before { content: '▶'; rotate: 0deg; transition: rotate 0.5s; position: absolute; left: 0; color: #767676; }
+      .hide .arrow {rotate: 0deg !important;}
       .hide .collapsible--content { display: none; }
     </style>
     <script>
       window.addEventListener('load', () => {
-        const collapsibleSections = document.querySelectorAll('[data-component="collapsible-section"]')
-        collapsibleSections.forEach(section => {
-          section.addEventListener('click', () => section.classList.toggle('hide'))
-        })
+        const collapsibleTitles = document.querySelectorAll('[data-component="collapsible-title"]')
+        collapsibleTitles.forEach(title => title.addEventListener('click', () => title.parentNode.classList.toggle('hide')))
       })
     </script>
 </script>
