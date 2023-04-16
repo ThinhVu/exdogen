@@ -1,7 +1,7 @@
 {
   "name": "exdogen",
   "version": "0.0.1",
-  "description": "EXpress router api DOcument GENerator",
+  "description": "EXpress router DOcument GENerator",
   "main": "src/index.js",
   "scripts": {
     "example": "cd example && node app.js",
@@ -19,11 +19,11 @@
   },
   "homepage": "https://github.com/ThinhVu/exdogen#readme",
   "dependencies": {
-    "routerex": "Thinhvu/routerex",
     "vue": "^3.2.47",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "routerex": "Thinhvu/routerex",
     "express": "^4.17.1",
     "conventional-changelog-cli": "^2.2.2"
   }
