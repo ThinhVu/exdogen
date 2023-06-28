@@ -2,6 +2,7 @@ const Router = require('routerex')
 
 const apiRouter = Router()
 
+apiRouter.use(function someMiddleware(req, res, next) {next()})
 apiRouter.get('/hi-mom', {
   title: 'hi mom',
   desc: 'Say hi to mom',

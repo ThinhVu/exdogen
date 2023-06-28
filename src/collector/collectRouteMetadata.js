@@ -12,10 +12,14 @@ module.exports = function collectRouteMetadata(parentPath, router) {
     } else {
       let currentPath = stack.regexp.toString()
       currentPath = currentPath.substr(4, currentPath.length - 17)
-      routes.push({
-        path: currentPath,
-        subRoute: collectRouteMetadata(path.join(parentPath, currentPath), stack.handle)
-      });
+      if (currentPath) {
+        routes.push({
+          path: currentPath,
+          subRoute: collectRouteMetadata(path.join(parentPath, currentPath), stack.handle)
+        })
+      } else {
+        // middleware -> skip
+      }
     }
   }
   return routes;
