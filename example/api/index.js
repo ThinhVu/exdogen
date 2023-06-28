@@ -1,4 +1,4 @@
-const Router = require('routerex')
+const Router = require('@tvux/routerex')
 
 const apiRouter = Router()
 

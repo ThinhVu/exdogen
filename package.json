@@ -1,6 +1,6 @@
 {
-  "name": "exdogen",
-  "version": "0.0.4",
+  "name": "@tvux/exdogen",
+  "version": "0.0.1",
   "description": "EXpress router DOcument GENerator",
   "main": "src/index.js",
   "scripts": {
@@ -23,7 +23,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "routerex": "Thinhvu/routerex#1.0.2",
+    "@tvux/routerex": "^1.0.2",
     "express": "^4.17.1",
     "conventional-changelog-cli": "^2.2.2"
   }
